@@ -1,0 +1,23 @@
+{
+    "name": "ard-structures",
+    "version": "0.1.1",
+    "description": "Data Stuctures",
+    "keywords": "planet, happiness, people",
+    "repository":
+    {
+      "type": "git",
+      "url": "https://github.com/Azrrael-exe/ard-structures.git"
+    },
+    "authors":
+    [
+      {
+        "name": "Victor Camargo",
+        "email": "vcamargo.e@gmail.com",
+        "url": "https://github.com/Azrrael-exe"
+      }
+    ],
+    "license": "MIT",
+    "dependencies": {},
+    "frameworks": "*",
+    "platforms": "*"
+  }
