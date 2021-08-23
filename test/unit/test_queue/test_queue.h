@@ -15,10 +15,3 @@ void test_function_queue(void) {
     TEST_ASSERT_EQUAL(test_queue.deQueue(), 3);
     TEST_ASSERT_NOT_EQUAL(test_queue.freeSlots(), 0);
 }
-
-int main(int argc, char **argv) {
-    UNITY_BEGIN();
-    RUN_TEST(test_function_queue);
-    UNITY_END();
-    return 0;
-}
