@@ -1,4 +1,6 @@
 #include "stack.h"
+#include "exception.h"
+
 
 template <typename T>
 Stack<T>::Stack(int size) {
@@ -10,6 +12,9 @@ Stack<T>::Stack(int size) {
 
 template <typename T>
 void Stack<T>::put(T value) {
+    if(this->free_slots == 0){
+        throw Exception(stack_error::FULL);
+    }
     if (this->index == (this->size - 1)){
         this->index = 0;
     }
@@ -22,6 +27,9 @@ void Stack<T>::put(T value) {
 
 template <typename T>
 T Stack<T>::get() {
+    if(this->free_slots == this->size){
+        throw Exception(stack_error::EMPTY);
+    }
     T value = this->list[this->index];
     if(this->index == 0){
         this->index = (this->size - 1);

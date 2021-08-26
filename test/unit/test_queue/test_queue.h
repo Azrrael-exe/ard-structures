@@ -1,17 +1,30 @@
 #include "queue.h"
+#include "exception.h"
 #include <unity.h>
 
-
 void test_function_queue(void) {
-    Queue test_queue = Queue(3);
-    TEST_ASSERT_TRUE(test_queue.queue(1));
-    TEST_ASSERT_TRUE(test_queue.queue(2));
-    TEST_ASSERT_TRUE(test_queue.queue(3));
+    static const int size = 5;
+    Queue<int> test_queue = Queue<int>(size);
+    
+    for(int i=0; i<(size + 1); i++){
+        try {
+            TEST_ASSERT_EQUAL(test_queue.freeSlots(), (size - i));
+            test_queue.queue(i);
+        }
+        catch (Exception& err) {
+            TEST_ASSERT_EQUAL(err.getCode(), queue_error::FULL);
+            break;
+        }
+    }  
 
-    TEST_ASSERT_FALSE(test_queue.queue(4));
-
-    TEST_ASSERT_EQUAL(test_queue.deQueue(), 1);
-    TEST_ASSERT_NOT_EQUAL(test_queue.deQueue(), 1);
-    TEST_ASSERT_EQUAL(test_queue.deQueue(), 3);
-    TEST_ASSERT_NOT_EQUAL(test_queue.freeSlots(), 0);
+    for(int i=0; i<(size + 1); i++) {
+        try {
+            TEST_ASSERT_EQUAL(test_queue.freeSlots(), i);
+            TEST_ASSERT_EQUAL(test_queue.deQueue(), i);
+        }
+        catch (Exception& err) {
+            TEST_ASSERT_EQUAL(err.getCode(), queue_error::EMPTY);
+            break;
+        }
+    }
 }

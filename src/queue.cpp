@@ -1,35 +1,38 @@
 #include "queue.h"
+#include "exception.h"
 
-Queue::Queue(int size){
-    this->list = new int[size];
+template <typename T>
+Queue<T>::Queue(int size){
+    this->list = new T[size];
     this->front_index = 0;
     this->rear_index = 0;
     this->size = size;
     this->free_slots = size;
 }
 
-int Queue::freeSlots() {
+template <typename T>
+int Queue<T>::freeSlots() {
     return this->free_slots;
 }
 
-int Queue::deQueue(){
-    if(this->free_slots <= size){
-        int value = this->list[this->front_index];
-        if(this->front_index + 1 == this->size){
-            this->front_index = 0;
-        } else {
-            this->front_index ++;
-        }
-        this->free_slots ++;
-        return value;
+template <typename T>
+T Queue<T>::deQueue(){
+    if (this->free_slots == size){
+        throw Exception(queue_error::EMPTY);
     }
-    else {
-        return -1;
+    T value = this->list[this->front_index];
+    if(this->front_index + 1 == this->size){
+        this->front_index = 0;
+    } else {
+        this->front_index ++;
     }
+    this->free_slots ++;
+    return value;
 }
 
-bool Queue::queue(int value) {
-    if(this->free_slots >= 1){
+template <typename T>
+void Queue<T>::queue(T value) {
+    if(this->free_slots > 0){
         this->list[this->rear_index] = value;
         this->free_slots --;
         if((this->rear_index + 1) == this->size){
@@ -37,8 +40,11 @@ bool Queue::queue(int value) {
         } else {
             this->rear_index ++;
         }
-        return true;
     } else {
-        return false;
+        throw Exception(queue_error::FULL);
     }
 }
+
+template class Queue<int>;
+template class Queue<float>;
+template class Queue<char>;

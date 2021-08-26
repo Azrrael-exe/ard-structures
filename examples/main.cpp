@@ -2,7 +2,7 @@
 #include "queue.h"
 #include "stack.h"
 
-Queue queue = Queue(10);
+Queue<int> queue = Queue<int>(10);
 
 void setup(){
     Serial.begin(115200);

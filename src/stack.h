@@ -1,6 +1,11 @@
 #ifndef STACK
 #define STACK
 
+namespace stack_error {
+    static const int FULL = 1;
+    static const int EMPTY = 2;
+};
+
 template <typename T>
 class Stack
 {
