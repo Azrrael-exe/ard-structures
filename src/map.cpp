@@ -61,7 +61,7 @@ bool Map::deleteKey(const string key) {
         this->map_key_list[key_index] = this->map_key_list[index];
         this->map_value_list[key_index] = this->map_value_list[index];
         this->map_key_list[index] = "";
-        this->map_value_list[index] = -1;
+        this->map_value_list[index] = 0;
         this->free_slots++;
         return true;
     }
