@@ -2,7 +2,7 @@
 #include <unity.h>
 
 void test_function_map(void) {
-    Map test_map(3);
+    Map<string,int> test_map = Map<string,int>(3);
 
     TEST_ASSERT_EQUAL_INT(3,test_map.freeSlots());
     TEST_ASSERT_TRUE(test_map.addKey("key1", 1));
