@@ -10,11 +10,13 @@ class Map
 {
     private:        
         int map_size;
-        string *map_key_list;
+        string* map_key_list;
         int* map_value_list;
+        bool* occupation_list;
         int free_slots;
         int index;
         int seeKeyIndex(const string key);
+        int getFreeIndex();
     public:
         Map(int map_size);
         bool addKey(const string key, int value);
