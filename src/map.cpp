@@ -57,7 +57,7 @@ bool Map::deleteKey(const string key) {
         return false;
     }
     else {
-        index--;
+        this->index--;
         this->map_key_list[key_index] = this->map_key_list[index];
         this->map_value_list[key_index] = this->map_value_list[index];
         this->map_key_list[index] = "";
