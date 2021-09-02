@@ -6,23 +6,24 @@
 
 using namespace std;
 
+template <typename T, typename V>
 class Map
 {
     private:        
         unsigned int map_size;
-        string* map_key_list;
-        int* map_value_list;
+        T* map_key_list;
+        V* map_value_list;
         bool* occupation_list;
-        int free_slots;
+        unsigned int free_slots;
         int index;
-        int seeKeyIndex(const string key);
+        int seeKeyIndex(T key);
         int getFreeIndex();
     public:
         Map(unsigned int map_size);
-        bool addKey(const string key, int value);
-        int seeKeyValue(const string key);
-        int freeSlots();
-        bool deleteKey(const string key);
+        bool addKey(T key, V value);
+        V seeKeyValue(T key);
+        unsigned int freeSlots();
+        bool deleteKey(T key);
 };
 
 #endif

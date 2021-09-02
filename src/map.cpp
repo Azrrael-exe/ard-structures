@@ -3,16 +3,18 @@
 
 using namespace std;
 
-Map::Map(unsigned int map_size) {
+template <typename T, typename V>
+Map<T,V>::Map(unsigned int map_size) {
     this->map_size = map_size;
-    this->map_key_list = new string[this->map_size];
-    this->map_value_list = new int[this->map_size];
+    this->map_key_list = new T[this->map_size];
+    this->map_value_list = new V[this->map_size];
     this->occupation_list = new bool[this->map_size];
     this->free_slots = map_size;
     this->index = 0;
 }
 
-int Map::getFreeIndex() {
+template <typename T, typename V>
+int Map<T,V>::getFreeIndex() {
     //Funcion para localizar el primer index vacio, segun occupation_list
     for (int i=0; i<this->map_size; i++) {
         if(!occupation_list[i]){
@@ -20,9 +22,11 @@ int Map::getFreeIndex() {
             return i;
         }
     }
+    return -1;
 }
 
-bool Map::addKey(const string key, int value) {
+template <typename T, typename V>
+bool Map<T,V>::addKey(T key, V value) {
     int key_index = this->seeKeyIndex(key);
     if (key_index == -1) {
         if (free_slots>0){
@@ -43,10 +47,13 @@ bool Map::addKey(const string key, int value) {
     }
 }
 
-int Map::seeKeyValue(const string key) {
+template <typename T, typename V>
+V Map<T,V>::seeKeyValue(T key) {
     for (int i=0; i<this->map_size; i++) {
         if (occupation_list[i]){
-            if (key.compare(this->map_key_list[i])==0) {
+            // Revisa que si hayan elementos para ese index
+            if (key == this->map_key_list[i]) {
+            // if (key.compare(this->map_key_list[i])==0) {
                 return this->map_value_list[i];
             }
         }
@@ -54,11 +61,13 @@ int Map::seeKeyValue(const string key) {
     return -1;   
 }
 
-int Map::seeKeyIndex(const string key) {
+template <typename T, typename V>
+int Map<T,V>::seeKeyIndex(T key) {
     for (int i=0; i<this->map_size; i++) {
         if (occupation_list[i]){
             // Revisa que si hayan elementos para ese index
-            if (key.compare(this->map_key_list[i])==0) {
+            if (key == this->map_key_list[i]) {
+            // if (key.compare(this->map_key_list[i])==0) {
                 return i;
             }
         }
@@ -66,7 +75,8 @@ int Map::seeKeyIndex(const string key) {
     return -1;   
 }
 
-bool Map::deleteKey(const string key) {
+template <typename T, typename V>
+bool Map<T,V>::deleteKey(T key) {
     int key_index = this->seeKeyIndex(key);
     if (key_index == -1) {
         return false;
@@ -83,6 +93,9 @@ bool Map::deleteKey(const string key) {
     }
 }
 
-int Map::freeSlots() {
+template <typename T, typename V>
+unsigned int Map<T,V>::freeSlots() {
     return free_slots;
 }
+
+template class Map<string,int>;
