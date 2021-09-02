@@ -1,4 +1,5 @@
 #include "map.h"
+#include "exception.h"
 #include <string>
 
 using namespace std;
@@ -22,29 +23,27 @@ int Map<T,V>::getFreeIndex() {
             return i;
         }
     }
-    return -1;
+    throw Exception(map_error::FULL);
 }
 
 template <typename T, typename V>
-bool Map<T,V>::addKey(T key, V value) {
-    int key_index = this->seeKeyIndex(key);
-    if (key_index == -1) {
+void Map<T,V>::addKey(T key, V value) {
+    try {
+        int key_index = this->seeKeyIndex(key);
+        this->map_value_list[key_index] = value;
+    }
+    catch (Exception& err){
         if (free_slots>0){
             this->index = this->getFreeIndex();
             this->map_key_list[this->index] = key;
             this->map_value_list[this->index] = value;
             this->occupation_list[this->index] = true;            
             this->free_slots--;
-            return true;        
         }
         else {
-            return false;
+            throw Exception(map_error::FULL);
         }
-    }
-    else {
-        this->map_value_list[key_index] = value;
-        return true;
-    }
+    }    
 }
 
 template <typename T, typename V>
@@ -58,7 +57,7 @@ V Map<T,V>::seeKeyValue(T key) {
             }
         }
     } 
-    return -1;   
+    throw Exception(map_error::NO_KEY);
 }
 
 template <typename T, typename V>
@@ -72,16 +71,17 @@ int Map<T,V>::seeKeyIndex(T key) {
             }
         }
     } 
-    return -1;   
+    throw Exception(map_error::NO_KEY);
 }
 
 template <typename T, typename V>
-bool Map<T,V>::deleteKey(T key) {
-    int key_index = this->seeKeyIndex(key);
-    if (key_index == -1) {
-        return false;
+void Map<T,V>::deleteKey(T key) {
+
+    if (this->free_slots == this->map_size) {
+        throw Exception(map_error::EMPTY);
     }
-    else {
+        int key_index = this->seeKeyIndex(key);    
+
         this->occupation_list[key_index] = false;
         // this->index--;
         // this->map_key_list[key_index] = this->map_key_list[index];
@@ -89,8 +89,6 @@ bool Map<T,V>::deleteKey(T key) {
         // this->map_key_list[index] = "";
         // this->map_value_list[index] = 0;
         this->free_slots++;
-        return true;
-    }
 }
 
 template <typename T, typename V>
