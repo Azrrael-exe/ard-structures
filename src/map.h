@@ -9,7 +9,7 @@ using namespace std;
 class Map
 {
     private:        
-        int map_size;
+        unsigned int map_size;
         string* map_key_list;
         int* map_value_list;
         bool* occupation_list;
@@ -18,7 +18,7 @@ class Map
         int seeKeyIndex(const string key);
         int getFreeIndex();
     public:
-        Map(int map_size);
+        Map(unsigned int map_size);
         bool addKey(const string key, int value);
         int seeKeyValue(const string key);
         int freeSlots();

@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Map::Map(int map_size) {
+Map::Map(unsigned int map_size) {
     this->map_size = map_size;
     this->map_key_list = new string[this->map_size];
     this->map_value_list = new int[this->map_size];
