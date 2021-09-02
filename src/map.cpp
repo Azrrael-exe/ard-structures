@@ -99,3 +99,4 @@ unsigned int Map<T,V>::freeSlots() {
 }
 
 template class Map<string,int>;
+template class Map<char,int>;
