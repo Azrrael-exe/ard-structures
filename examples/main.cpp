@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "queue.h"
 #include "stack.h"
+#include "bufferCircular.h"
 
 Queue queue = Queue(10);
 
